@@ -1,0 +1,9 @@
+.jumbotron {
+    margin-top: 30px;
+    border: 10px solid;
+}
+
+.train {
+    max-width: 100%;
+    margin: auto;
+}
