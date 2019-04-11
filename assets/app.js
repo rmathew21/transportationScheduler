@@ -15,7 +15,7 @@ let destination = "";
 let firstTrain = "";
 let frequency = "";
 
-// Button for adding flights
+// Button for adding train
 $("#add-flight-btn").on("click", function(event) {
     event.preventDefault();
 
@@ -27,7 +27,7 @@ $("#add-flight-btn").on("click", function(event) {
 
     
     
-    // Uploads flight data to the database
+    // Uploads train data to the database
      database.ref().push({
         name: name,
         destination: destination,
@@ -35,7 +35,7 @@ $("#add-flight-btn").on("click", function(event) {
         frequency: frequency,
      });
     
-
+     // sanity check
      console.log(name);
      console.log(destination);
      console.log(firstTrain);
@@ -55,7 +55,7 @@ $("#add-flight-btn").on("click", function(event) {
 database.ref().on("child_added", function(childSnapshot) {
     console.log(childSnapshot.val());
 
-    // Storing changes into letiables
+    // Storing changes into variables
     let trainName = childSnapshot.val().name;
     let trainDestination = childSnapshot.val().destination;
     let trainFirst = childSnapshot.val().time;
@@ -76,14 +76,14 @@ let newRow = $("<tr>").append(
     $("<td>").text(frequency),
 );
 
-let firstTrainMath = moment(trainFirst, "hh:mm a").subtract(1, "years");
-let currentTime = moment().format("HH:mm a");
+let firstTrainMath = moment(trainFirst, "HH:mm ").subtract(1, "years");
+let currentTime = moment().format("HH:mm ");
 console.log("Current Time:" + currentTime);
 
 let timeDifference = moment().diff(moment(trainFirst), "minutes");
 let timeLeft = timeDifference % trainFrequency;
 let minutesAway = trainFrequency - timeLeft;
-let nextArrival = moment().add(minutesAway, "minutes").format("hh:mm a");
+let nextArrival = moment().add(minutesAway, "minutes").format("HH:mm ");
 
 // Append new row to the table
 
